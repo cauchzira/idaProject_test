@@ -1,2 +1,4 @@
 import * as RootGetters from "@/store/getter-types";
-export default {};
+export default {
+  [RootGetters.GET_ITEMS]: ({ dbItems }) => dbItems,
+};
