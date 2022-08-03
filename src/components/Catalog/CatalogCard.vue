@@ -118,6 +118,7 @@ export default {
     line-height: 20px;
     color: #3f3f3f;
     margin-bottom: 32px;
+    text-align: justify;
   }
   &__price {
     font-style: normal;
