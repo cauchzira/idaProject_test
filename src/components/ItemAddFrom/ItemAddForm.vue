@@ -24,6 +24,7 @@
           class="form__input-input form__input-desc"
           placeholder="Введите описание товара"
           v-model="filterDesc"
+          maxlength="208"
           ref="filterDesc"
           type="text"
         />
@@ -72,6 +73,9 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
+import { SET_ADD_ITEM } from "@/store/mutation-types";
+import { mapMutations } from "vuex";
 export default {
   name: "ItemAddForm",
   data() {
@@ -151,11 +155,22 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      addItem: SET_ADD_ITEM,
+    }),
     submitHandler() {
       if (Object.keys(this.errors).length === 0) {
+        let item = {
+          title: this.filterTitle,
+          description: this.filterDesc,
+          imgSrc: this.filterImgUrl,
+          price: this.filters.price,
+          id: uuidv4(),
+        };
+        this.addItem(item);
         this.filterTitle = "";
         this.filterDesc = "";
-        this.filters.imgUrl = "";
+        this.filterImgUrl = "";
         this.filters.price = "";
       }
       this.$nextTick(() => {
@@ -248,8 +263,10 @@ export default {
       border: none;
       letter-spacing: -0.02em;
       color: #b4b4b4;
+      transition: all 0.5s ease;
     }
     &-add--active {
+      transition: all 0.5s ease;
       background: #7bae73;
       color: #ffffff;
     }

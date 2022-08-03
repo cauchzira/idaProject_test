@@ -1,47 +1,56 @@
 <template>
   <li class="card">
-    <div class="card__delete">
+    <div class="card__delete" @click="deleteHandler(item.id)">
       <img src="@/assets/img/trash.svg" alt="" />
     </div>
     <div class="card__image">
-      <img
-        src="https://avatars.mds.yandex.net/get-images-cbir/228079/b0er-OCbJW0AO-6Yeu8YEw8922/ocr"
-        alt=""
-      />
+      <img :src="item.imgSrc" alt="" />
     </div>
     <div class="card__info">
       <div class="card__title">
-        <h3 class="title">Lorem ipsum dolor sit amet.</h3>
+        <h3 class="title">{{ item.title }}</h3>
       </div>
       <div class="card__desc">
         <p class="card__description">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium
-          reiciendis illum error, quae velit modi, sunt minima fuga at, culpa
-          molestias quod sint! Maiores illo esse eos eligendi inventore
-          sapiente.
+          {{ item.description }}
         </p>
       </div>
       <div class="card__price">
-        <p class="price">10 000 руб</p>
+        <p class="price">{{ item.price }} руб</p>
       </div>
     </div>
   </li>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { SET_DELETE_ITEM } from "@/store/mutation-types";
 export default {
   name: "CatalogCard",
+  props: {
+    item: {
+      type: Object,
+    },
+  },
+  methods: {
+    ...mapMutations({
+      deleteItem: SET_DELETE_ITEM,
+    }),
+    deleteHandler(id) {
+      this.deleteItem(id);
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .card {
   width: 30%;
-  height: fit-content;
+  max-height: 470px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 30px;
   background: #fffefb;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04),
@@ -88,6 +97,11 @@ export default {
 
   &__info {
     padding: 16px;
+    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 235px;
   }
   &__title {
     font-style: normal;
