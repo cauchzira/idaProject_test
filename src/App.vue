@@ -12,7 +12,7 @@ body {
 }
 #app {
   margin: 32px 32px 0 32px;
-  min-width: 396px;
+  min-width: 328px;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
